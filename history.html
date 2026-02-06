@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ประวัติการออกกำลังกาย</title>
+
+<style>
+
+body{
+    font-family: Arial;
+    background:#e9ecef;
+    margin:0;
+    display:flex;
+    justify-content:center;
+}
+
+.phone{
+    width:360px;
+    background:white;
+    min-height:100vh;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 0 15px gray;
+    padding:15px;
+    box-sizing:border-box;
+
+    /* กันเมนูล่างบังข้อมูล */
+    padding-bottom:80px;
+}
+
+.title{
+    text-align:center;
+    font-size:22px;
+    margin-bottom:15px;
+}
+
+.card{
+    background:#f5f5f5;
+    padding:12px;
+    margin-bottom:12px;
+    border-radius:12px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:#3b82f6;
+    color:white;
+    font-size:18px;
+    margin-top:15px;
+    cursor:pointer;
+}
+
+/* เมนูล่าง */
+.bottom-menu{
+    display:flex;
+    justify-content:space-around;
+    padding:15px;
+    border-top:1px solid #ddd;
+    background:white;
+    position:fixed;
+    bottom:0;
+    width:360px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+<div class="title">📊 ประวัติการออกกำลังกาย</div>
+
+<div id="historyList"></div>
+
+</div>
+
+<!-- เมนูล่าง -->
+<div class="bottom-menu">
+<div onclick="goTimer()">⏱</div>
+<div onclick="goHome()">😊</div>
+<div onclick="goFolder()">💪</div>
+</div>
+
+<script>
+
+function loadHistory(){
+
+    let history = JSON.parse(localStorage.getItem("history")) || [];
+
+    let box = document.getElementById("historyList");
+    box.innerHTML = "";
+
+    history.reverse().forEach(item => {
+
+        box.innerHTML += `
+        <div class="card">
+            <b>📅 ${item.date}</b><br>
+            ⏰ ${item.time}<br>
+            💪 ${item.activity}<br>
+            🌟 ${item.motivate}
+        </div>
+        `;
+
+    });
+
+}
+
+loadHistory();
+
+</script>
+
+    <script>
+    
+function goTimer(){
+    window.location.href = "history.html";
+}
+
+function goHome(){
+    window.location.href = "index.html";
+}
+
+function goFolder(){
+    window.location.href = "information.html";
+}
+</script>
+</body>
+</html>

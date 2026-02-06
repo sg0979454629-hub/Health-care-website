@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ผ่อนคลาย</title>
+
+<style>
+body{
+    font-family: Arial;
+    text-align:center;
+    background:#e9ecef;
+}
+
+.phone{
+    width:360px;
+    margin:auto;
+    background:white;
+    min-height:100vh;
+    padding:20px;
+    position:relative;
+}
+
+/* ✅ ปุ่มย้อนกลับ */
+.back-btn{
+    position:absolute;
+    top:15px;
+    left:15px;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:none;
+    background:#ddd;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.timer{
+    font-size:35px;
+    margin:20px 0;
+}
+
+.start-btn{
+    background:#3b82f6;
+    color:white;
+    border:none;
+    padding:15px 30px;
+    font-size:20px;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+video{
+    width:100%;
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+<!-- ✅ ปุ่มกลับ -->
+<button class="back-btn" onclick="goHome()">⬅</button>
+
+<h2>🧘 ฝึกหายใจ</h2>
+
+<div class="timer" id="timer">2:08</div>
+
+<button class="start-btn" onclick="startRelax()">เริ่ม</button>
+
+<video id="relaxVideo">
+    <source src="หายใจ.mp4" type="video/mp4">
+</video>
+
+</div>
+
+<script>
+
+let time = 128; // 2:08 นาที
+let timerDisplay = document.getElementById("timer");
+let video = document.getElementById("relaxVideo");
+
+function startRelax(){
+
+    video.style.display = "block";
+    video.play();
+
+    // เต็มจอ
+    if(video.requestFullscreen){
+        video.requestFullscreen();
+    }
+
+    startTimer();
+}
+
+function startTimer(){
+
+    let countdown = setInterval(()=>{
+
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
+
+        timerDisplay.innerText =
+        String(minutes).padStart(2,'0') + ":" +
+        String(seconds).padStart(2,'0');
+
+        time--;
+
+        if(time < 0){
+
+            clearInterval(countdown);
+
+            video.pause();
+
+            alert("หมดเวลาแล้ว");
+
+            window.location.href = "index.html";
+        }
+
+    },1000);
+}
+
+/* ✅ ฟังก์ชันกลับหน้าแรก */
+function goHome(){
+    window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>

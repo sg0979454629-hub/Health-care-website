@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ตั้งค่าแจ้งเตือนออกกำลังกาย</title>
+
+<style>
+
+body{
+    margin:0;
+    background:#eee;
+    display:flex;
+    justify-content:center;
+    font-family:Arial;
+}
+
+.phone{
+    width:360px;
+    background:white;
+    min-height:100vh;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 0 15px gray;
+    padding:20px;
+    box-sizing:border-box;
+}
+
+.title{
+    text-align:center;
+    font-size:22px;
+    margin-bottom:20px;
+}
+
+.table{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:12px;
+}
+
+.day{
+    background:#f5f5f5;
+    padding:20px;
+    text-align:center;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.day.selected{
+    background:#c7f0d8;
+    border:2px solid green;
+}
+
+.save-btn{
+    margin-top:20px;
+    width:100%;
+    padding:15px;
+    font-size:18px;
+    border:none;
+    border-radius:12px;
+    background:#3b82f6;
+    color:white;
+    cursor:pointer;
+}
+
+.bottom-menu{
+    display:flex;
+    justify-content:space-around;
+    padding:15px;
+    border-top:1px solid #ddd;
+    background:white;
+    position:absolute;
+    bottom:0;
+    width:360px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+<div class="title">📅 เลือกวันออกกำลังกาย (สูงสุด 3 วัน)</div>
+
+<div class="table" id="dayTable"></div>
+
+<button class="save-btn" onclick="saveDays()">บันทึก</button>
+
+</div>
+
+<div class="bottom-menu">
+<div onclick="goTimer()">⏱</div>
+<div onclick="goHome()">😊</div>
+<div onclick="goFolder()">💪</div>
+</div>
+
+<script>
+
+const days = [
+    "จันทร์","อังคาร","พุธ","พฤหัส","ศุกร์","เสาร์","อาทิตย์"
+];
+
+let selectedDays = JSON.parse(localStorage.getItem("exerciseDays")) || [];
+
+const table = document.getElementById("dayTable");
+
+// สร้างช่องวัน
+days.forEach(day => {
+
+    let div = document.createElement("div");
+    div.className = "day";
+    div.innerText = day;
+
+    if(selectedDays.includes(day)){
+        div.classList.add("selected");
+    }
+
+    div.onclick = () => toggleDay(day, div);
+
+    table.appendChild(div);
+});
+
+
+// เลือกวัน
+function toggleDay(day, element){
+
+    if(selectedDays.includes(day)){
+        selectedDays = selectedDays.filter(d => d !== day);
+        element.classList.remove("selected");
+    }
+    else{
+
+        if(selectedDays.length >= 3){
+            alert("เลือกได้สูงสุด 3 วัน");
+            return;
+        }
+
+        selectedDays.push(day);
+        element.classList.add("selected");
+    }
+}
+
+
+// บันทึก
+function saveDays(){
+
+    localStorage.setItem("exerciseDays", JSON.stringify(selectedDays));
+
+    alert("บันทึกเรียบร้อย 🎉");
+}
+
+
+// เมนูล่าง
+function goTimer(){
+    window.location.href = "history.html";
+}
+
+function goHome(){
+    window.location.href = "index.html";
+}
+
+function goFolder(){
+    window.location.href = "information.html";
+}
+
+</script>
+
+</body>
+</html>

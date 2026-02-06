@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ออกกำลังกายประจำวัน</title>
+
+<style>
+    .selected{
+    background: #c7f0d8;
+    border:2px solid green;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background:#e9ecef;
+    margin:0;
+    display:flex;
+    justify-content:center;
+}
+
+/* กล่องมือถือ */
+.phone{
+    width:360px;
+    background:white;
+    min-height:100vh;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 0 15px gray;
+
+    position:relative;   /* 👈 เพิ่มบรรทัดนี้ */
+}
+
+
+/* Header */
+.header{
+    text-align:center;
+    padding:20px;
+    border-bottom:1px solid #ddd;
+}
+
+.logo{
+    font-size:28px;
+    color:green;
+}
+
+/* หัวข้อ */
+.title{
+    font-size:22px;
+    margin-top:10px;
+}
+
+/* กิจกรรม */
+.card{
+    background:#f5f5f5;
+    margin:15px;
+    padding:15px;
+    border-radius:12px;
+    font-size:18px;
+   }
+
+.card.selected{
+    border:2px solid green;
+    background:#e9f7ef;
+}
+
+/* ปุ่ม */
+.start-btn{
+    background:#3b82f6;
+    color:white;
+    border:none;
+    width:80%;
+    padding:15px;
+    font-size:20px;
+    border-radius:15px;
+    margin:20px auto;
+    display:block;
+    cursor:pointer;
+}
+
+/* เมนูล่าง */
+.bottom-menu{
+    display:flex;
+    justify-content:space-around;
+    padding:15px;
+    border-top:1px solid #ddd;
+    background:white;
+
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+
+
+</style>
+</head>
+
+<body>
+
+
+<div class="phone">
+
+<div class="header">
+<div class="logo">💚 5-Min Fit</div>
+<div class="title">กิจกรรม 5 นาทีประจำวันนี้</div>
+</div>
+
+<div class="card" onclick="selectActivity('ยืดกล้ามเนื้อเร็ว 5 นาที', this)">
+❤️ ยืดกล้ามเนื้อเร็ว
+</div>
+
+<div class="card" onclick="selectActivity('ออกกำลังกาย 5 นาที', this)">
+🍎 ออกกำลังกาย
+</div>
+
+<div class="card" onclick="selectActivity('หายใจและผ่อนคลาย 5 นาที', this)">
+🧘 หายใจและผ่อนคลาย
+</div>
+
+<button class="start-btn" id="startBtn" onclick="goPage()" disabled>
+Start Now!
+</button> 
+
+
+<div class="bottom-menu">
+<div onclick="goTimer()">⏱</div>
+<div onclick="goHome()">😊</div>
+<div onclick="goFolder()">💪</div>
+</div>
+
+</div>
+
+</div>
+
+
+
+
+</body>
+
+
+
+
+
+    <script>
+
+function goTimer(){
+    window.location.href = "history.html";
+}
+
+function goHome(){
+    window.location.href = "index.html";
+}
+
+function goFolder(){
+    window.location.href = "information.html";
+}
+</script>
+
+<script>
+let selectedActivity = "";
+
+function selectActivity(activity, element){
+
+    selectedActivity = activity;
+
+    // ลบสีตัวอื่น
+    document.querySelectorAll(".card").forEach(card=>{
+        card.classList.remove("selected");
+    });
+
+    // ใส่สีตัวที่เลือก
+    element.classList.add("selected");
+
+    // ⭐ เพิ่มบรรทัดนี้
+    document.getElementById("startBtn").disabled = false;
+}
+
+
+function goPage(){
+
+    if(selectedActivity === ""){
+        alert("กรุณาเลือกกิจกรรมก่อน");
+        return;
+    }
+    localStorage.setItem("activity", selectedActivity);
+
+    if(selectedActivity.includes("ยืดกล้ามเนื้อ")){
+        window.location.href = "stretch.html";
+    }
+    else if(selectedActivity.includes("ออกกำลังกาย")){
+        window.location.href = "exercise.html";
+    }
+    else if(selectedActivity.includes("หายใจ")){
+        window.location.href = "relax.html";
+    }
+}
+</script>
+
+</html>

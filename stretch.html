@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ยืดกล้ามเนื้อ</title>
+
+<style>
+
+body{
+    font-family: Arial;
+    background:#e9ecef;
+    margin:0;
+    display:flex;
+    justify-content:center;
+}
+
+/* กล่องมือถือ */
+.phone{
+    width:360px;
+    background:white;
+    min-height:100vh;
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 0 15px gray;
+    text-align:center;
+    padding:20px;
+    box-sizing:border-box;
+}
+
+/* รูป */
+.exercise-img{
+    width:100%;
+    border-radius:15px;
+    cursor:pointer;
+}
+
+/* ปุ่ม */
+button{
+    margin-top:20px;
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    background:#3b82f6;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+/* FULL SCREEN VIEW */
+.viewer{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.viewer img{
+    max-width:100%;
+    max-height:100%;
+}
+
+.close-btn{
+    position:absolute;
+    top:20px;
+    right:20px;
+    background:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+<h2>ท่ายืดกล้ามเนื้อ</h2>
+
+<img src="ยืดกล้ามเนื้อ.png" class="exercise-img" onclick="openViewer()">
+
+<button onclick="goHome()">⬅ กลับหน้า Home</button>
+
+</div>
+
+<!-- FULL SCREEN -->
+<div class="viewer" id="viewer">
+    <button class="close-btn" onclick="closeViewer()">ปิด</button>
+    <img src="ยืดกล้ามเนื้อ.png">
+</div>
+
+<script>
+
+function openViewer(){
+    document.getElementById("viewer").style.display = "flex";
+}
+
+function closeViewer(){
+    document.getElementById("viewer").style.display = "none";
+}
+
+function goHome(){
+    window.location.href = "index.html";
+}
+
+</script>
+
+</body>
+</html>
